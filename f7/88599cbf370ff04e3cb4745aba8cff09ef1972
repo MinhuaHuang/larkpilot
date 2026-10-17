@@ -1,0 +1,20 @@
+.gitignore
+  h_dbf45b5308ac9c 1
+index.js
+  h_dbf45b5308ac9c 1-364
+package-lock.json
+  h_dbf45b5308ac9c 1-671
+package.json
+  h_dbf45b5308ac9c 1-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f788599cbf370ff04e3cb4745aba8cff09ef1972",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
