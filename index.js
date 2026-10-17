@@ -1,12 +1,11 @@
 import { createLarkChannel } from "@larksuite/channel";
 import { spawn } from "child_process";
 import { randomUUID } from "crypto";
-import os from "os";
 import path from "path";
 import fs from "fs";
+import { DATA_DIR, loadConfig, createTaskLogger } from "./common.js";
 
-const DATA_DIR = path.join(os.homedir(), ".larkpilot");
-fs.mkdirSync(DATA_DIR, { recursive: true });
+const appLog = createTaskLogger("app");
 
 const FILES_DIR = path.join(DATA_DIR, "files");
 fs.mkdirSync(FILES_DIR, { recursive: true });
@@ -14,9 +13,17 @@ fs.mkdirSync(FILES_DIR, { recursive: true });
 const CLAUDE_DIR = path.join(DATA_DIR, "chats");
 fs.mkdirSync(CLAUDE_DIR, { recursive: true });
 
+const config = loadConfig();
+if (!config.appId || !config.appSecret) {
+  appLog.error(
+    "缺少飞书应用配置，请先执行: larkpilot config set appId <appId> appSecret <appSecret>",
+  );
+  process.exit(1);
+}
+
 const channel = createLarkChannel({
-  appId: "cli_aa5a22bc81b85d21",
-  appSecret: "jjIcGbRsnd8zqscmDUo4lbwgaSq1AwXK",
+  appId: config.appId,
+  appSecret: config.appSecret,
   // default per-chat pipeline serializes handlers (next message waits for
   // the previous one); disable it — concurrency is governed by our own
   // session lock + global slot instead
@@ -111,28 +118,28 @@ function completeTask(sessionKey) {
   tryDispatch();
 }
 
-function runClaudeStream(prompt, sessionKey, ctl) {
-  console.log("claude prompt: ", prompt);
+function runClaudeStream(prompt, sessionKey, ctl, log) {
+  log.log("claude prompt:", prompt);
   const session = getOrCreateSession(sessionKey);
   const seedNew = pendingSessions.get(sessionKey) === session;
   if (seedNew) pendingSessions.delete(sessionKey); // consumed before spawn
   return new Promise((resolve, reject) => {
-    const args = [
-      "--print",
-      "--output-format",
-      "stream-json",
-      "--verbose",
-      "--include-partial-messages",
-      "--permission-mode",
-      "bypassPermissions",
+    // single command string (no args array + shell:true) to avoid Node's
+    // DEP0190 warning; every part is a static flag or a uuid, nothing
+    // user-controlled reaches this line — the prompt still goes via stdin
+    const cmd =
+      "claude --print --output-format stream-json --verbose " +
+      "--include-partial-messages --permission-mode bypassPermissions " +
       // unused id: seed a new session with --session-id;
       // executed id: continue it with --resume
-      seedNew ? "--session-id" : "--resume",
-      session.sessionId,
-    ];
-    // prompt goes via stdin: shell:true (needed for claude.cmd on Windows)
-    // makes passing arbitrary chat text as argv unsafe
-    const child = spawn("claude", args, { cwd: CLAUDE_DIR, shell: true });
+      (seedNew ? "--session-id " : "--resume ") +
+      session.sessionId;
+    const child = spawn(cmd, {
+      cwd: CLAUDE_DIR,
+      shell: true,
+      // no console window flash on Windows
+      windowsHide: true,
+    });
     let stderr = "";
     let buffer = "";
     let sawContent = false;
@@ -194,7 +201,7 @@ function runClaudeStream(prompt, sessionKey, ctl) {
   });
 }
 
-async function downloadMsgResourceToFile(msg) {
+async function downloadMsgResourceToFile(msg, log) {
   let filePaths = [];
   if (msg.resources) {
     for (let resource of msg.resources) {
@@ -207,7 +214,7 @@ async function downloadMsgResourceToFile(msg) {
           resource.type,
           resourceFilePath,
         );
-        console.log("download recourceFile:", recourceFile);
+        log.log("download recourceFile:", recourceFile);
       }
     }
   }
@@ -215,7 +222,9 @@ async function downloadMsgResourceToFile(msg) {
 }
 
 channel.on("message", async (msg) => {
-  console.log("received:", msg);
+  // task-scoped logger: every line prefixed `time|messageId| `
+  const log = createTaskLogger(msg.messageId);
+  log.log("received:", msg);
   const sessionKey = msg.chatId + "+" + msg.senderId;
 
   if (msg.content.trim() === "/session-new") {
@@ -229,22 +238,20 @@ channel.on("message", async (msg) => {
   let receivedMsgContent = msg.content;
   if (msg.rawContentType === "interactive") {
     let rawMessage = await channel.fetchRawMessage(msg.messageId);
-    console.log("interactiveRawMessage:", rawMessage);
+    log.log("interactiveRawMessage:", rawMessage);
     receivedMsgContent = rawMessage[0].body?.content;
   }
-  let resourceFilePaths = await downloadMsgResourceToFile(msg);
+  let resourceFilePaths = await downloadMsgResourceToFile(msg, log);
 
   if (msg.replyToMessageId) {
     let replyToMessage = await channel.fetchMessage(msg.replyToMessageId);
-    console.log("replyToMessage:", replyToMessage);
-    resourceFilePaths.push(
-      ...(await downloadMsgResourceToFile(replyToMessage)),
-    );
+    log.log("replyToMessage:", replyToMessage);
+    resourceFilePaths.push(...(await downloadMsgResourceToFile(replyToMessage, log)));
     if (replyToMessage.rawContentType === "interactive") {
       let replyToRawMessage = await channel.fetchRawMessage(
         msg.replyToMessageId,
       );
-      console.log("replyToInteractiveRawMessage:", replyToRawMessage);
+      log.log("replyToInteractiveRawMessage:", replyToRawMessage);
       let replyToRawContent = replyToRawMessage[0].body?.content;
       receivedMsgContent =
         "```\n" + replyToRawContent + "\n```\n\n---\n\n" + msg.content;
@@ -253,14 +260,14 @@ channel.on("message", async (msg) => {
     }
   }
 
-  console.log("resourceFilePaths:", resourceFilePaths);
+  log.log("resourceFilePaths:", resourceFilePaths);
 
   // queue non-empty (preserve FIFO), no free slot, or session busy -> queue
   // with an immediate notice; otherwise run right away
   const task = {
     sessionKey,
     run: () =>
-      processMessage(msg, sessionKey, receivedMsgContent, resourceFilePaths),
+      processMessage(msg, sessionKey, receivedMsgContent, resourceFilePaths, log),
   };
   if (
     taskQueue.length > 0 ||
@@ -278,7 +285,7 @@ channel.on("message", async (msg) => {
   task.run();
 });
 
-async function processMessage(msg, sessionKey, receivedMsgContent, resourceFilePaths) {
+async function processMessage(msg, sessionKey, receivedMsgContent, resourceFilePaths, log) {
   try {
     await channel.stream(
       msg.chatId,
@@ -293,7 +300,7 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
         const push = (p) =>
           // fire-and-forget: catch so a failed card update can't become
           // an unhandled rejection and kill the process
-          p.catch((e) => console.error("update failed:", e));
+          p.catch((e) => log.error("update failed:", e));
         const ctl = {
           text(t) {
             answer += t;
@@ -325,6 +332,7 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
                 : ""),
             sessionKey,
             ctl,
+            log,
           );
           if (stats) {
             const dur =
@@ -340,7 +348,7 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
           }
           //   c.append(`\n\n---\n\n<at id=${msg.senderId}></at>`);
         } catch (err) {
-          console.error("claude failed:", err);
+          log.error("claude failed:", err);
           await c.append(
             "\n\n⚠️ claude 调用失败:\n\n```\n" +
               String(err.message || err).slice(0, 1000) +
@@ -355,10 +363,12 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
       },
     );
   } catch (err) {
-    console.error("stream failed:", err);
+    log.error("stream failed:", err);
   } finally {
     completeTask(sessionKey);
   }
 }
 
+appLog.log("bot starting");
 await channel.connect();
+appLog.log("bot connected");
