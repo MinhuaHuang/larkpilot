@@ -1,0 +1,27 @@
+chat.js
+  s_5b310ccf7b14fd::t_6d7dd4d50320ad 304-339,348,361
+  h_dbf45b5308ac9c 369
+  s_5b310ccf7b14fd::t_7598e615aef020 389-391
+  s_5b310ccf7b14fd::t_b96112779bb22d 379-381,384
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5dff88523cc42e2cbc0529570682e36cf4d62e94",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  },
+  "sessions": {
+    "s_5b310ccf7b14fd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "983afee2-d765-4893-b5e9-0918a525d95d",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
