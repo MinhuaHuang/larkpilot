@@ -1,0 +1,26 @@
+hook.js
+  h_dbf45b5308ac9c 76,162
+chat.js
+  s_4d92ff795a1d60::t_99ca0a95a4ab1b 123-125
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "900d8af3bd0da438cb5e0e7459f83730fe1d30a1",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  },
+  "sessions": {
+    "s_4d92ff795a1d60": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f9b1b80d-db97-4564-bd15-3be906ac4a96",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
