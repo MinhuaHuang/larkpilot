@@ -1,0 +1,19 @@
+hook.js
+  s_df88c11324872e::t_0c188defb88bd4 53-58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5042e13fd639bd8551bb60b1fdd5607b22ed7bc3",
+  "prompts": {},
+  "sessions": {
+    "s_df88c11324872e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6a68eb2-a739-4357-ad45-f668c4a1df60",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
