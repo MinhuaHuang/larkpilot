@@ -1,0 +1,79 @@
+hook.js
+  s_daadff2b04e792::t_97a3ea27011ea5 150
+  s_daadff2b04e792::t_0c0ba6f352dbca 4,12
+  h_dbf45b5308ac9c 65,95,149,158
+  s_daadff2b04e792::t_00948a7213e3aa 61-64,66-94,96-99,108
+  s_daadff2b04e792::t_2f9fa747a8d02c 159
+  s_daadff2b04e792::t_dac7707a2d8d05 2-3,5-11,13-25,28-33,36-42,44,46,50,52-55,57-58,60,100,109-111,117-142,144-148,151-157,160-165,168-171,173-176,178,180-183,185-188,190-191,193-197
+  s_daadff2b04e792::t_dda649cd354dc5 1
+  s_daadff2b04e792::t_c85abf23e4829e 26-27
+  s_daadff2b04e792::t_d409222a42feed 34-35
+  s_daadff2b04e792::t_eb61a5ef06c6b2 43
+  s_daadff2b04e792::t_fbc3d2eb3ae6d0 45
+  s_daadff2b04e792::t_2763d56b1ad1a8 47-49
+  s_daadff2b04e792::t_3a3d8eedc0c504 51
+  s_daadff2b04e792::t_746186f8a71c67 56
+  s_daadff2b04e792::t_3d0af8e9a4ef86 59
+  s_daadff2b04e792::t_af2b0d9428bca4 101-103,105-107
+  s_daadff2b04e792::t_7d2194328d3610 112-116
+  s_daadff2b04e792::t_7a38ba9694e783 143
+  s_daadff2b04e792::t_2a1e253cc3787a 166-167
+  s_daadff2b04e792::t_bbcc825295a606 172
+  s_daadff2b04e792::t_9798f933e6fcb4 177
+  s_daadff2b04e792::t_975064fd74b0b3 179
+  s_daadff2b04e792::t_43f360ce412c15 184
+  s_daadff2b04e792::t_dab1417d322152 189
+  s_daadff2b04e792::t_a0acbae647df36 192
+  h_dbf45b5308ac9c 104
+package.json
+  s_daadff2b04e792::t_6c6680d1d82880 13
+  s_daadff2b04e792::t_4330073155b33a 20
+.gitignore
+  h_dbf45b5308ac9c 2
+  h_dbf45b5308ac9c 1
+index.js
+  s_daadff2b04e792::t_473b078f75ec48 46-47,70-71,226,267,286,316,326-333
+  s_daadff2b04e792::t_3e4b5f9c918218 11-13
+  s_daadff2b04e792::t_57102808e71bdc 317-318
+  s_daadff2b04e792::t_cce58b8db1b18b 8-10
+  s_daadff2b04e792::t_a70777caef43c6 14-16
+  s_daadff2b04e792::t_d38a9f05a02117 43-45
+  s_daadff2b04e792::t_3d412b0dd47371 48-50
+  s_daadff2b04e792::t_059962012912d3 67-69
+  s_daadff2b04e792::t_9ae60097b5d37f 72-74
+  s_daadff2b04e792::t_750e8c5cc8c53e 223-225
+  s_daadff2b04e792::t_dc812d6c3a8c5b 264-266
+  s_daadff2b04e792::t_68308289580aa3 268-270,283-285
+  s_daadff2b04e792::t_8e47caa37d3565 287-289,313-315
+  s_daadff2b04e792::t_43dabbbf48b872 319-321,323-325
+  s_daadff2b04e792::t_c298ffd3412a03 334-336
+  h_dbf45b5308ac9c 1-2,5,17-18,20-24,26,28,30,34-37,39-42,51-60,62-66,75,77-83,85-89,93,99,101,110-131,138-142,144-149,151-157,159-164,166-167,169-176,178,180-186,188-193,195-221,228-231,235-263,271-282,290-312,322
+common.js
+  s_daadff2b04e792::t_d12fc89650a804 89-106,108-109,114
+  s_daadff2b04e792::t_b4765ff8ab1ae5 4,9-10,12,14-34,36-51
+package-lock.json
+  s_daadff2b04e792::t_a4894a40eec73e 13,15-17,166-177,520-528
+chat.js
+  h_dbf45b5308ac9c 1,6,8,10-41,43-48,50,53-54,56-58,60-69,71-82,84-119,121-125,127-129,132-136,140,144-185,189-190,196-197,204-221,224-228,230-235,238-242,244,246-259,263,265-286,288-365,367-372,374-376
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d03944a96bfd74fbae54f4cb03e2074a408227de",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  },
+  "sessions": {
+    "s_daadff2b04e792": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1779e022-f6e2-45d2-80f9-2395f37646fe",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
