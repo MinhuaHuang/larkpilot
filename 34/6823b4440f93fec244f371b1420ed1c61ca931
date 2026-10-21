@@ -1,0 +1,36 @@
+common.js
+  h_dbf45b5308ac9c 9-11
+hook.js
+  s_9896f16d65633c::t_2316bf7f8ef3c9 153
+  s_9896f16d65633c::t_c5ee9bdbb67e67 49-55
+  h_dbf45b5308ac9c 4,61,65,118
+  s_9896f16d65633c::t_acbae8f1ed0fbc 56
+  s_9896f16d65633c::t_c9d6b6372db73c 152,154
+  h_dbf45b5308ac9c 139
+index.js
+  s_9896f16d65633c::t_10837c770b96bc 85
+chat.js
+  s_9896f16d65633c::t_32e9a9e209328b 31,34
+  h_dbf45b5308ac9c 6,135,223
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "346823b4440f93fec244f371b1420ed1c61ca931",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  },
+  "sessions": {
+    "s_9896f16d65633c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "84ff2edf-e1a9-4e01-b301-700df0b55d9c",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
