@@ -1,0 +1,31 @@
+chat.js
+  s_afebe3caaf6a57::t_207ef3e6d4e182 193
+  s_afebe3caaf6a57::t_3853df9b9b5c5d 138
+  s_afebe3caaf6a57::t_40260617359859 6-13
+  s_afebe3caaf6a57::t_bf8aaeb24181f0 150
+  s_afebe3caaf6a57::t_675c2ac0b0db2c 199-202,204-210
+  s_afebe3caaf6a57::t_251ecc64c29518 203
+common.js
+  s_afebe3caaf6a57::t_0f50da2f754938 95-108
+  s_afebe3caaf6a57::t_84417e9a4dc9ac 57-58,60
+  s_afebe3caaf6a57::t_5f2d9afaf1c69d 59,61-62
+index.js
+  s_afebe3caaf6a57::t_05da973b4fb258 94,102,104,108
+  s_afebe3caaf6a57::t_69504b77f8c3aa 17-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "10440315b0d4d4e19d78d3d7769afb06970c4f32",
+  "prompts": {},
+  "sessions": {
+    "s_afebe3caaf6a57": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c8d8a688-f4d9-4fc8-b923-e8620ac69bf7",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
