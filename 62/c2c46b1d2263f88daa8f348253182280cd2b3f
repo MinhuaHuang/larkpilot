@@ -1,0 +1,24 @@
+docs/superpowers/specs/2026-10-28-crossmark-abort-design.md
+  s_714f6110541bb9::t_94003e82f0620d 1-85
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "62c2c46b1d2263f88daa8f348253182280cd2b3f",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  },
+  "sessions": {
+    "s_714f6110541bb9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "381a85d6-39e2-4c93-a10d-e9a0d2a4b3d1",
+        "model": "unknown"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
