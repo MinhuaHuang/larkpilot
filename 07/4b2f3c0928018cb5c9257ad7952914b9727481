@@ -1,0 +1,19 @@
+chat.js
+  s_714f6110541bb9::t_52d77cc3fe0da6 359
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "074b2f3c0928018cb5c9257ad7952914b9727481",
+  "prompts": {},
+  "sessions": {
+    "s_714f6110541bb9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "381a85d6-39e2-4c93-a10d-e9a0d2a4b3d1",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
