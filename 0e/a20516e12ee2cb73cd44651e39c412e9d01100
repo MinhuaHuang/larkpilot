@@ -1,0 +1,63 @@
+test/msg-session.test.js
+  s_425ae2bd3a7a2c::t_31000400c5bed5 16,18,38,41
+  s_76d9336c96936c::t_2f09d4e25d8f57 14
+  s_425ae2bd3a7a2c::t_8b0f02aacbc373 39-40,42-47
+  s_76d9336c96936c::t_edead20c3b6046 48-53
+  s_425ae2bd3a7a2c::t_0f2c946c1b3f3d 1-13,15,17,19-37,54-61
+common.js
+  s_425ae2bd3a7a2c::t_9dce0949465c6e 64-65,79-80
+  s_425ae2bd3a7a2c::t_0683ef1198dc07 31-35
+  s_425ae2bd3a7a2c::t_584cae14c14019 15-17
+  s_76d9336c96936c::t_22cd2e7cb822e4 81-92
+  s_425ae2bd3a7a2c::t_c0397385dae61c 69,77
+  s_425ae2bd3a7a2c::t_deed8b40682df4 66-68,70-76,78
+chat.js
+  s_425ae2bd3a7a2c::t_7bd2404fe8521a 14,539
+  s_425ae2bd3a7a2c::t_98834c856b7c97 507,509
+  s_76d9336c96936c::t_dc318e15ac8a7f 455,461-463
+  s_76d9336c96936c::t_f5d039768e69a3 183
+  s_76d9336c96936c::t_4c5c115abb617f 369-371,384
+  s_76d9336c96936c::t_ef2aabc9b6f203 436
+  s_425ae2bd3a7a2c::t_9f953142367c8f 460
+  s_76d9336c96936c::t_df80f6b7f246f3 513
+  s_76d9336c96936c::t_babb0a4ed3ba4f 367-368,372-375,377-383
+  s_76d9336c96936c::t_91a50fc89ff0c5 208-211
+  h_dbf45b5308ac9c 323-332
+  s_425ae2bd3a7a2c::t_97b51c31b2a3e3 335
+  s_76d9336c96936c::t_72c2a178a65c92 123-125,127-128,130
+  s_425ae2bd3a7a2c::t_9b67620d8e3b44 537-538
+  s_76d9336c96936c::t_fe6766549d3cf4 15
+  s_76d9336c96936c::t_93c28df5541345 277
+  s_76d9336c96936c::t_b7f94727d028c7 395,402-405,411-412
+  s_76d9336c96936c::t_e6d8c885048901 396-401,406-410
+  s_425ae2bd3a7a2c::t_bfd58b87dbc202 203-204
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0ea20516e12ee2cb73cd44651e39c412e9d01100",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  },
+  "sessions": {
+    "s_425ae2bd3a7a2c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9c4ff907-8e5f-4570-ac7b-4aafaffa42c0",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_76d9336c96936c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6f5228ad-4c35-43e6-a4b2-cc19e21ef16c",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
