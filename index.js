@@ -36,7 +36,7 @@ function readPid() {
 const program = new Command()
   .name("larkpilot")
   .description("飞书 claude 机器人")
-  .version("1.0.1");
+  .version("1.0.2");
 
 function startBot() {
   const pid = readPid();
