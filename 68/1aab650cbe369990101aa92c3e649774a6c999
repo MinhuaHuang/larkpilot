@@ -1,0 +1,18 @@
+index.js
+  h_dbf45b5308ac9c 39
+package-lock.json
+  h_dbf45b5308ac9c 3,9
+package.json
+  h_dbf45b5308ac9c 3,15-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "681aab650cbe369990101aa92c3e649774a6c999",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
