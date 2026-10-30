@@ -1,0 +1,40 @@
+chat.js
+  s_055928077e5687::t_e486fa9a6a8ff4 185-190,192-194
+  s_5f4a5775d5223b::t_95f6f14687d909 359-363
+  s_055928077e5687::t_6fb8f99f3aea7e 16
+  s_5f4a5775d5223b::t_3e26f297283f31 381-383
+  h_dbf45b5308ac9c 191,546
+test/chat-directives.test.js
+  s_055928077e5687::t_30a47c57815791 1-57
+common.js
+  s_055928077e5687::t_c28ebcfd205ec0 64-80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6ebea6016f36c0a826cf9c10549f720d0e953252",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  },
+  "sessions": {
+    "s_055928077e5687": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c14dfcd3-978c-449a-a9fe-3fbfc637773d",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_5f4a5775d5223b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4d8caa74-f5b4-45d8-9e3f-0f56d8392d10",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
