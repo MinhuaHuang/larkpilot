@@ -1,0 +1,14 @@
+.gitignore
+  h_dbf45b5308ac9c 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "af7f93600543cda54f5ae572a40b97e244661730",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
