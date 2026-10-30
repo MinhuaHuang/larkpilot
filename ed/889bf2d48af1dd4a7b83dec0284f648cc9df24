@@ -1,0 +1,31 @@
+index.js
+  h_dbf45b5308ac9c 39
+package.json
+  h_dbf45b5308ac9c 3
+README.md
+  s_ebb148c23bc6a1::t_53f9d3b0804f84 1-83,85-98
+  h_dbf45b5308ac9c 84
+package-lock.json
+  h_dbf45b5308ac9c 3,9,17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ed889bf2d48af1dd4a7b83dec0284f648cc9df24",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  },
+  "sessions": {
+    "s_ebb148c23bc6a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0d7b3ad7-1941-4b04-9b9b-f5998f7e01ae",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
