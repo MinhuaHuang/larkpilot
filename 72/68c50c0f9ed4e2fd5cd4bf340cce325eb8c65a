@@ -1,0 +1,19 @@
+chat.js
+  s_86d5250353c4cd::t_8f5ae4505a9b80 366-373
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7268c50c0f9ed4e2fd5cd4bf340cce325eb8c65a",
+  "prompts": {},
+  "sessions": {
+    "s_86d5250353c4cd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a80624c-4cb3-467b-b7c9-c0029d86c360",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
