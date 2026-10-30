@@ -1,0 +1,284 @@
+package-lock.json
+  h_dbf45b5308ac9c 3,9,17
+  s_daadff2b04e792::t_a4894a40eec73e 13,15-16,166-177,520-528
+chat.js
+  s_285c918b8bd936::t_91a384b47dcb54 524,537,541,547-548,570-572,574-578
+  s_285c918b8bd936::t_20b88c8e7f7982 729-731
+  s_714f6110541bb9::t_a0f48c35de9aba 735
+  s_7a9f369fff5c58::t_a9fa3f620d1676 495-496,498,500
+  s_76d9336c96936c::t_72c2a178a65c92 124-126,128-129,131
+  s_285c918b8bd936::t_62ab36d87d76e7 425
+  s_285c918b8bd936::t_77e5e5b7c088f0 659-660,663,667
+  s_055928077e5687::t_e486fa9a6a8ff4 185-190,192-194
+  s_714f6110541bb9::t_487d62ec85bd16 263-268
+  s_714f6110541bb9::t_9afa8c21542690 706-707
+  s_714f6110541bb9::t_58ac710e2f9bdb 561
+  s_714f6110541bb9::t_23eb958843dde3 395,398-407,409-419
+  s_76d9336c96936c::t_93c28df5541345 310
+  s_7a9f369fff5c58::t_60a97b709551cb 91,181-184,195-212,262,330,334,354
+  s_9896f16d65633c::t_32e9a9e209328b 73,76
+  s_285c918b8bd936::t_c2d6a7b2a6b462 35-39,44
+  s_76d9336c96936c::t_df80f6b7f246f3 562
+  h_dbf45b5308ac9c 1,19,21-34,40-43,45-48,70-72,74-75,77-80,82-87,89,92-93,95-97,99-108,110-121,123,127,130,132-162,191,217,238-239,246,251,253-256,258,260,270-281,283,285-305,309,328-329,336-353,356-358,364-365,392-394,396,408,420-424,426-427,438,449-453,455,475-487,491,493-494,497,501,504,513,516,536,539,543,554-555,679,718,732-734,736-738,740-742
+  s_285c918b8bd936::t_b1fe12c876bc22 488,512,514-515,520,523,528-530,538,540,542,544-546,549-553,557,559-560,563-566,580,582-585,589-656,658,661-662,664-666,668-669,672,678,680-705,708-717,719-725
+  s_76d9336c96936c::t_f5d039768e69a3 216
+  s_76d9336c96936c::t_e6d8c885048901 458-463,468-472
+  s_7a9f369fff5c58::t_91cf19c7771887 374-388
+  s_76d9336c96936c::t_91a50fc89ff0c5 241-244
+  s_055928077e5687::t_6fb8f99f3aea7e 16
+  s_285c918b8bd936::t_835ded2a626b19 673-677
+  s_285c918b8bd936::t_8334babb1cbeb2 726-728
+  s_87842259d19a03::t_e0e5e0bce35260 252
+  s_afebe3caaf6a57::t_675c2ac0b0db2c 315-318,320-326
+  s_285c918b8bd936::t_1f0e47037e632b 282,284
+  s_285c918b8bd936::t_12d996fae139fd 517-519,525,531-535
+  s_76d9336c96936c::t_dc318e15ac8a7f 503,509-511
+  s_afebe3caaf6a57::t_207ef3e6d4e182 306
+  s_87842259d19a03::t_9ce20b0bcbdb43 221-222
+  s_714f6110541bb9::t_c247e044027f34 312-314
+  s_76d9336c96936c::t_b7f94727d028c7 90,447,454,457,464-467,473-474,489
+  s_4d92ff795a1d60::t_99ca0a95a4ab1b 240
+  s_285c918b8bd936::t_40aed13932f074 657,670-671
+  s_76d9336c96936c::t_babb0a4ed3ba4f 429-430,434-437,439-445
+  s_425ae2bd3a7a2c::t_7bd2404fe8521a 14,588
+  s_afebe3caaf6a57::t_bf8aaeb24181f0 269
+  s_425ae2bd3a7a2c::t_9b67620d8e3b44 586-587
+  s_afebe3caaf6a57::t_3853df9b9b5c5d 250
+  s_76d9336c96936c::t_ef2aabc9b6f203 499
+  s_714f6110541bb9::t_0f06eddf05d2b3 164-180,333
+  s_87842259d19a03::t_2e7bd06d882b39 49-69
+  s_87842259d19a03::t_4b2b373df86ed6 247-248
+  s_87842259d19a03::t_7eb1f07c939daf 4
+  s_5f4a5775d5223b::t_3e26f297283f31 389-391
+  s_86d5250353c4cd::t_8f5ae4505a9b80 366-373
+  s_afebe3caaf6a57::t_251ecc64c29518 319
+  s_285c918b8bd936::t_9f5f66ece8b6f2 521-522,526-527,567-569,573,579,581
+  s_425ae2bd3a7a2c::t_97b51c31b2a3e3 397
+  s_425ae2bd3a7a2c::t_9f953142367c8f 508
+  s_425ae2bd3a7a2c::t_98834c856b7c97 556,558
+  s_5f4a5775d5223b::t_95f6f14687d909 359-363
+  s_425ae2bd3a7a2c::t_bfd58b87dbc202 236-237
+  s_76d9336c96936c::t_fe6766549d3cf4 15
+  s_76d9336c96936c::t_4c5c115abb617f 431-433,446
+  s_87842259d19a03::t_007028cbc693d5 213-215,218-220,223-235
+  s_afebe3caaf6a57::t_40260617359859 7-13,17
+  s_714f6110541bb9::t_93901205304079 505-507
+  h_dbf45b5308ac9c 2-3,5-6,18,20,81,88,94,98,109,122,163,245,249,257,259,261,307-308,311,327,331-332,335,355,428,448,456,490,492,502,739
+common.js
+  s_055928077e5687::t_c28ebcfd205ec0 64-71,73-80
+  s_76d9336c96936c::t_22cd2e7cb822e4 98-109
+  h_dbf45b5308ac9c 9-11
+  s_afebe3caaf6a57::t_5f2d9afaf1c69d 112,114-115
+  s_425ae2bd3a7a2c::t_9dce0949465c6e 81-82
+  s_425ae2bd3a7a2c::t_0683ef1198dc07 31-35
+  s_afebe3caaf6a57::t_0f50da2f754938 148-161
+  s_daadff2b04e792::t_b4765ff8ab1ae5 4,12-13,19-30,36-47,50-61
+  s_afebe3caaf6a57::t_84417e9a4dc9ac 110-111,113
+  s_425ae2bd3a7a2c::t_c0397385dae61c 86,94
+  s_425ae2bd3a7a2c::t_584cae14c14019 15-17
+  s_425ae2bd3a7a2c::t_deed8b40682df4 83-85,87-93
+  s_daadff2b04e792::t_d12fc89650a804 62,165-182,184-185,190
+  h_dbf45b5308ac9c 18,63
+docs/superpowers/specs/2026-10-28-crossmark-abort-design.md
+  s_714f6110541bb9::t_94003e82f0620d 1-85
+test/msg-session.test.js
+  s_425ae2bd3a7a2c::t_0f2c946c1b3f3d 1-13,15,17,19-37,54-61
+  s_425ae2bd3a7a2c::t_31000400c5bed5 16,18,38,41
+  s_76d9336c96936c::t_2f09d4e25d8f57 14
+  s_425ae2bd3a7a2c::t_8b0f02aacbc373 39-40,42-47
+  s_76d9336c96936c::t_edead20c3b6046 48-53
+test/chat-directives.test.js
+  s_055928077e5687::t_30a47c57815791 1-57
+.gitignore
+  h_dbf45b5308ac9c 1-3
+index.js
+  s_daadff2b04e792::t_473b078f75ec48 247,288,307,337,347-354
+  s_daadff2b04e792::t_cce58b8db1b18b 8-10
+  s_daadff2b04e792::t_dc812d6c3a8c5b 285-287
+  h_dbf45b5308ac9c 1-2,5,19-20,22-26,28,30,32,36-39,54,77,80-81,85-86,91,95,98-103,106-109,113,119,121,131-152,159-163,165-170,172-178,180-185,187-188,190-197,199,201-207,209-214,216-242,249-252,256-284,292-303,311-333,343
+  s_9896f16d65633c::t_10837c770b96bc 105
+  s_daadff2b04e792::t_750e8c5cc8c53e 244-246
+  s_daadff2b04e792::t_8e47caa37d3565 308-310,334-336
+  s_daadff2b04e792::t_68308289580aa3 289-291,304-306
+  s_87842259d19a03::t_44d3e83f6fd9a5 76,79,84,89,97
+  s_daadff2b04e792::t_3e4b5f9c918218 11-13
+  s_daadff2b04e792::t_a70777caef43c6 14-16
+  s_daadff2b04e792::t_43dabbbf48b872 340-342,344-346
+  s_afebe3caaf6a57::t_05da973b4fb258 112,120,122,126
+  s_daadff2b04e792::t_c298ffd3412a03 355-357
+  s_87842259d19a03::t_bab8583018832a 41-53,55-58,61-73,82,87,90,92-94
+  s_daadff2b04e792::t_57102808e71bdc 338-339
+  s_afebe3caaf6a57::t_69504b77f8c3aa 17-18
+  h_dbf45b5308ac9c 104
+hook.js
+  s_daadff2b04e792::t_3a3d8eedc0c504 62
+  s_daadff2b04e792::t_2f9fa747a8d02c 172
+  s_daadff2b04e792::t_746186f8a71c67 67
+  s_daadff2b04e792::t_3d0af8e9a4ef86 70
+  s_daadff2b04e792::t_c85abf23e4829e 26-27
+  s_daadff2b04e792::t_dac7707a2d8d05 2-3,5-11,13-25,28-33,36-42,44,46,61,63,65-66,69,71,111,120,127-141,143-152,154,158-161,164-170,173-178,181-184,186-189,191,193-196,198-201,203-204,206-210
+  s_df88c11324872e::t_0c188defb88bd4 53-58
+  s_daadff2b04e792::t_97a3ea27011ea5 163
+  s_daadff2b04e792::t_7d2194328d3610 122-126
+  s_9896f16d65633c::t_c9d6b6372db73c 155,157
+  s_daadff2b04e792::t_fbc3d2eb3ae6d0 45
+  s_daadff2b04e792::t_0c0ba6f352dbca 12
+  s_daadff2b04e792::t_dab1417d322152 202
+  s_daadff2b04e792::t_00948a7213e3aa 72-75,77-105,107-110,119
+  s_daadff2b04e792::t_43f360ce412c15 197
+  s_daadff2b04e792::t_d409222a42feed 34-35
+  s_daadff2b04e792::t_dda649cd354dc5 1
+  s_daadff2b04e792::t_2a1e253cc3787a 179-180
+  s_9896f16d65633c::t_c5ee9bdbb67e67 49-52
+  s_daadff2b04e792::t_bbcc825295a606 185
+  s_daadff2b04e792::t_af2b0d9428bca4 112-114,116-118
+  s_daadff2b04e792::t_a0acbae647df36 205
+  s_daadff2b04e792::t_2763d56b1ad1a8 47-48,60
+  s_daadff2b04e792::t_975064fd74b0b3 192
+  s_daadff2b04e792::t_9798f933e6fcb4 190
+  h_dbf45b5308ac9c 4,64,68,76,106,115,121,142,162,171
+  s_9896f16d65633c::t_2316bf7f8ef3c9 156
+  s_9896f16d65633c::t_acbae8f1ed0fbc 59
+  s_daadff2b04e792::t_eb61a5ef06c6b2 43
+  s_daadff2b04e792::t_7a38ba9694e783 153
+package.json
+  s_daadff2b04e792::t_6c6680d1d82880 13
+  s_daadff2b04e792::t_4330073155b33a 20
+  h_dbf45b5308ac9c 3
+README.md
+  s_ebb148c23bc6a1::t_53f9d3b0804f84 1-83,85-98
+  h_dbf45b5308ac9c 84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "94c14e15e5b92bf7e4aca10d723bdf1498f6ae1e",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  },
+  "sessions": {
+    "s_055928077e5687": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c14dfcd3-978c-449a-a9fe-3fbfc637773d",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_285c918b8bd936": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4d7b971d-fbad-49a0-934c-5e8a7f0d7ba2",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_425ae2bd3a7a2c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9c4ff907-8e5f-4570-ac7b-4aafaffa42c0",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_4d92ff795a1d60": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f9b1b80d-db97-4564-bd15-3be906ac4a96",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_5f4a5775d5223b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4d8caa74-f5b4-45d8-9e3f-0f56d8392d10",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_714f6110541bb9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "381a85d6-39e2-4c93-a10d-e9a0d2a4b3d1",
+        "model": "unknown"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_76d9336c96936c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6f5228ad-4c35-43e6-a4b2-cc19e21ef16c",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_7a9f369fff5c58": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d2f38a4d-59d1-4f5b-a99e-15fc8837bc27",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_86d5250353c4cd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a80624c-4cb3-467b-b7c9-c0029d86c360",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_87842259d19a03": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9b2cb83d-d779-46c6-90ab-de3a51cf3e9f",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_9896f16d65633c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "84ff2edf-e1a9-4e01-b301-700df0b55d9c",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_afebe3caaf6a57": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c8d8a688-f4d9-4fc8-b923-e8620ac69bf7",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_daadff2b04e792": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1779e022-f6e2-45d2-80f9-2395f37646fe",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_df88c11324872e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6a68eb2-a739-4357-ad45-f668c4a1df60",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    },
+    "s_ebb148c23bc6a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0d7b3ad7-1941-4b04-9b9b-f5998f7e01ae",
+        "model": "GLM-5.3"
+      },
+      "human_author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
