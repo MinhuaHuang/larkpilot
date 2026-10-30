@@ -1,0 +1,14 @@
+LICENSE.txt
+  h_dbf45b5308ac9c 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "92a873b7e21b5e5c375ff01b06fe727e948145f5",
+  "prompts": {},
+  "humans": {
+    "h_dbf45b5308ac9c": {
+      "author": "minhuahuang <miller.huang@jtexpress.com>"
+    }
+  }
+}
