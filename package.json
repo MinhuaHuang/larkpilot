@@ -1,6 +1,6 @@
 {
   "name": "larkpilot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "飞书智能助手",
   "keywords": [
     "lark"
@@ -10,13 +10,14 @@
   "type": "module",
   "main": "index.js",
   "bin": {
-    "larkpilot": "cli.js"
+    "larkpilot": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@larksuite/channel": "^0.7.1",
+    "better-sqlite3": "^13.0.3",
     "commander": "^15.0.0"
   }
 }
