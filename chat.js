@@ -75,6 +75,9 @@ const channel = createLarkChannel({
 // get consumed before spawn and land in json when claude closes
 const SESSION_FILE = path.join(DATA_DIR, "chat-session.json");
 const SESSION_TTL_MS = 4 * 60 * 60 * 1000;
+// a reply may still pin a session this long after its expiry — claude keeps
+// the session resumable on disk well past the app TTL
+const REPLY_SESSION_GRACE_MS = 7 * 24 * 60 * 60 * 1000;
 const SESSION_MAX_PER_KEY = 20;
 
 function loadSessions() {
@@ -459,8 +462,8 @@ channel.on("message", async (msg) => {
   // session is looked up across all users — a group member may reply to a
   // card the bot sent to someone else. the pin is one-shot: an armed
   // pending session stays armed, so later messages still open the new one.
-  // anything else — no mapping, session unknown/expired/still running, or
-  // an armed /session-new — falls back to quoting the replied-to content
+  // anything else — no mapping, session unknown/expired >7d/still running,
+  // or an armed /session-new — falls back to quoting the replied-to content
   let replySession = null;
   if (msg.replyToMessageId && !armedPending) {
     const replySessionId = getSessionIdByMsgId(msg.replyToMessageId);
@@ -468,7 +471,9 @@ channel.on("message", async (msg) => {
       Object.values(sessionStore)
         .flat()
         .find(
-          (e) => e.sessionId === replySessionId && e.expiresAt > Date.now(),
+          (e) =>
+            e.sessionId === replySessionId &&
+            e.expiresAt > Date.now() - REPLY_SESSION_GRACE_MS,
         ) ?? null;
   }
   if (msg.replyToMessageId && !replySession) {
