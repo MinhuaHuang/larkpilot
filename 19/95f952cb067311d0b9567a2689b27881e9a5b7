@@ -1,0 +1,18 @@
+index.js
+  h_d923b42e3a3ad7 39
+package.json
+  h_d923b42e3a3ad7 3-4,6-7
+package-lock.json
+  h_d923b42e3a3ad7 3,9,314-316
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1995f952cb067311d0b9567a2689b27881e9a5b7",
+  "prompts": {},
+  "humans": {
+    "h_d923b42e3a3ad7": {
+      "author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    }
+  }
+}
