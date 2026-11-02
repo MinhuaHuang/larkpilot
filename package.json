@@ -1,9 +1,10 @@
 {
   "name": "larkpilot",
-  "version": "1.0.2",
-  "description": "飞书智能助手",
+  "version": "1.0.3",
+  "description": "飞书智能助手 + 本地Agent（Claude Code）",
   "keywords": [
-    "lark"
+    "lark",
+    "claude code"
   ],
   "license": "ISC",
   "author": "huangminhua",
