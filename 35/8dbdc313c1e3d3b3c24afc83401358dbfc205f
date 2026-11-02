@@ -1,0 +1,21 @@
+chat.js
+  s_09fdf398c20c75::t_2f9906be8c243b 465-466
+  s_09fdf398c20c75::t_c283c1e19dae40 474-476
+  s_09fdf398c20c75::t_e33af5beb0a900 78-80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "358dbdc313c1e3d3b3c24afc83401358dbfc205f",
+  "prompts": {},
+  "sessions": {
+    "s_09fdf398c20c75": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a2a83794-cf4a-40b3-978f-07cf00cdca9f",
+        "model": "GLM-5.3"
+      },
+      "human_author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    }
+  }
+}
