@@ -6,7 +6,7 @@
 
 - **飞书机器人**：群内 @机器人 或私聊发消息，调用本地 `claude` CLI 处理，回复以流式卡片实时输出（含 thinking 过程展示）
 - **会话续聊**：每个「会话 + 用户」 维护独立的 Claude 会话（4 小时有效）；回复机器人的卡片可直接继续该轮对话；`/session-new` 强制开启新会话
-- **任务队列**：全局最多 2 个任务并发，同一会话内串行执行；排队时即时提示
+- **任务队列**：全局并发任务数可配置（`max_concurrent`，默认 2），同一会话内串行执行；排队时即时提示
 - **任务中止**：对机器人的消息点 ❌（CrossMark 表情）即可中止运行中或排队中的任务
 - **hook 通知**：本地交互式 Claude Code 的 `Notification` / `Stop` / `StopFailure` 事件推送飞书卡片通知，所有 hook 事件落库 `agent_hook_log` 表
 - **ask 单次任务**：`larkpilot ask` 把内容交给 Claude 执行并将结果发送到指定飞书会话（跨进程串行队列）
@@ -61,14 +61,17 @@ larkpilot config set hookChatId <chatId>
 | `appId` / `appSecret` | 飞书自建应用凭证（必填） |
 | `hookChatId` | hook 通知的目标会话 ID |
 | `claudePath` | `claude` 可执行文件绝对路径，覆盖默认 PATH 查找 |
-| `disable_chat_ids` | JSON 数组，关闭这些会话里的机器人，如 `["oc_xxx"]`（解析失败时保持开启） |
-| `chat_prompt_<chatId>` | 附加到该会话每条消息后的自定义指令 |
+| `lark_stream_throttle_ms` | 卡片流式更新的节流间隔（毫秒），缺省 `200`，设为如 `500` 可降低更新频率 |
+| `max_concurrent` | 全局最大并发任务数，缺省 `2`；非法值（非整数 / 小于 1）回退缺省 |
+| `chat_<chatId>` | 按群聊配置，JSON 串：`{"prompt":"附加到该群聊每条消息后的自定义指令","disabled":false,"model":"","stream_end_at":true}`（`disabled` 为 `true` 时关闭该群聊里的机器人；`model` 非空时该群聊用指定模型调用 claude，即 `--model` 参数；`stream_end_at` 为 `true` 时执行结束后单独 @ 提问者并回复最后一张卡片，默认开启；解析失败时保持开启） |
 
 ## 机器人使用
 
 - 直接发消息：沿用该会话的 Claude 上下文
 - `/session-new [问题]`：开启新会话；带问题时立即在新会话中执行
 - `/effort-<level> 问题`：前缀指定推理力度，可选 `low / medium / high / xhigh / max`，缺省 `medium`
+- `/model <model>`：设置该群聊的模型（写入 `chat_<chatId>` 的 `model` 字段，全群生效）
+- `/stream_end_at_enable` / `/stream_end_at_disable`：开启/关闭该群聊执行结束后的 @ 提醒（写入 `chat_<chatId>` 的 `stream_end_at` 字段，默认开启，全群生效）
 - 回复机器人的卡片：继续该卡片对应的对话
 - 点 ❌：中止对应任务（运行中杀进程树，排队中移出队列）
 - 发送文件/图片等资源会自动下载并附上本地路径给 Claude

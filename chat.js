@@ -14,6 +14,9 @@ import {
   recordChatBotMsgSession,
   getSessionIdByMsgId,
   getChatDirectives,
+  setChatModel,
+  setChatStreamEndAt,
+  getMaxConcurrent,
 } from "./common.js";
 
 const appLog = createTaskLogger("app");
@@ -138,14 +141,14 @@ function persistSession(key, entry, onlyExisting = false) {
   saveSessions();
 }
 
-// ---- task queue: global FIFO, max 2 running, per-session exclusive ----
-const MAX_CONCURRENT = 2;
+// ---- task queue: global FIFO, per-session exclusive; concurrency cap is
+// config key max_concurrent (default 2, read fresh via getMaxConcurrent) ----
 let runningCount = 0;
 const runningSessions = new Set();
 const taskQueue = []; // FIFO: { sessionKey, run }
 
 function tryDispatch() {
-  while (runningCount < MAX_CONCURRENT) {
+  while (runningCount < getMaxConcurrent()) {
     // earliest task whose session is idle; session-blocked tasks stay put —
     // later independent tasks overtake them (pure FIFO would stall a slot
     // behind a task that physically cannot run yet)
@@ -185,21 +188,26 @@ function killTree(child) {
 // run right away when a slot is free and the session is idle; queue with an
 // immediate notice otherwise
 async function submitTask(msg, sessionKey, run) {
-  // per-chat switches: disabled chats get an immediate offline notice and
-  // never queue; a configured chat_prompt_<chatId> rides on msg into the
-  // claude prompt (appended at the end — the head must stay free for the
-  // /effort-<level> prefix)
-  const { disabled, chatPrompt } = getChatDirectives(msg.chatId);
+  // per-chat switches (config key chat_<chatId>, JSON {prompt, disabled,
+  // model}): disabled chats get an immediate offline notice and never queue;
+  // a configured prompt rides on msg into the claude prompt (appended at the
+  // end — the head must stay free for the /effort-<level> prefix); model
+  // rides on msg into the claude --model flag
+  const { disabled, chatPrompt, chatModel, streamEndAt } = getChatDirectives(
+    msg.chatId,
+  );
   if (disabled) {
     await channel.reply(msg, { markdown: "助手已下线..." });
     return;
   }
   if (chatPrompt) msg.chatPrompt = chatPrompt;
+  if (chatModel) msg.chatModel = chatModel;
+  msg.streamEndAt = streamEndAt;
   const task = { sessionKey, run };
   activeTasks.set(msg.messageId, { cancelled: false, child: null, task, msg });
   if (
     taskQueue.length > 0 ||
-    runningCount >= MAX_CONCURRENT ||
+    runningCount >= getMaxConcurrent() ||
     runningSessions.has(sessionKey)
   ) {
     taskQueue.push(task);
@@ -216,7 +224,7 @@ async function submitTask(msg, sessionKey, run) {
 // /effort-<level> prefix on a prompt maps to the --effort flag
 const EFFORT_LEVELS = ["low", "medium", "high", "xhigh", "max"];
 
-function runClaudeStream(prompt, sessionKey, session, ctl, log, task = null, forced = false) {
+function runClaudeStream(prompt, sessionKey, session, ctl, log, task = null, forced = false, model = null) {
   log.log("claude prompt:", prompt);
   // parse before any session bookkeeping: an invalid level aborts the run
   // without touching session state; the rejected promise rides the caller's
@@ -253,6 +261,10 @@ function runClaudeStream(prompt, sessionKey, session, ctl, log, task = null, for
       `"${resolveClaudeCmd()}" --print --output-format stream-json --verbose ` +
       "--include-partial-messages --permission-mode bypassPermissions " +
       `--effort ${effort} ` +
+      // per-chat model override (config chat_<chatId> "model" field); a
+      // static model name from our own config table — same trust level as
+      // the effort whitelist above
+      (model ? `--model ${model} ` : "") +
       // unused id: seed a new session with --session-id;
       // executed id: continue it with --resume
       (seedNew ? "--session-id " : "--resume ") +
@@ -275,7 +287,7 @@ function runClaudeStream(prompt, sessionKey, session, ctl, log, task = null, for
     let resultStats = null;
     const handleLine = (line) => {
       if (!line.trim()) return;
-      // console.log(line);
+      console.log(line);
       let evt;
       try {
         evt = JSON.parse(line);
@@ -429,6 +441,33 @@ channel.on("message", async (msg) => {
   log.log("received:", msg);
   const sessionKey = msg.chatId + "+" + msg.senderId;
 
+  // "/model <model>" persists the chat-level model override (config key
+  // chat_<chatId>, "model" field) — applies to EVERYONE in this chat from
+  // the next message on
+  const modelMatch = msg.content.trim().match(/^\/model\s+(\S+)\s*$/);
+  if (modelMatch) {
+    setChatModel(msg.chatId, modelMatch[1]);
+    await channel.reply(msg, {
+      markdown: `✅ 该群聊的模型已设为 \`${modelMatch[1]}\`，下一条消息起全群生效`,
+    });
+    return;
+  }
+
+  // "/stream_end_at_enable" / "/stream_end_at_disable" persist the chat-level
+  // stream_end_at toggle (config key chat_<chatId>, "stream_end_at" field) —
+  // whether the asker gets a standalone @-mention when a run finishes
+  const streamEndAtMatch = msg.content
+    .trim()
+    .match(/^\/stream_end_at_(enable|disable)\s*$/);
+  if (streamEndAtMatch) {
+    const enabled = streamEndAtMatch[1] === "enable";
+    setChatStreamEndAt(msg.chatId, enabled);
+    await channel.reply(msg, {
+      markdown: `✅ 该群聊已${enabled ? "开启" : "关闭"}执行结束 @ 提醒，下一条消息起生效`,
+    });
+    return;
+  }
+
   // "/session-new" alone arms a fresh session for the next message;
   // "/session-new <question>" arms one and runs the question on it right
   // away — strip the command and fall through to the normal message path.
@@ -529,6 +568,9 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
     let live = null; // active card renderer; deltas route here, null = no card
     let closeCard = null; // current card's rollover trigger, set by its producer
     let done = false; // footer flushed, stream finished
+    // newest card's message id across the whole run — reply target of the
+    // stream_end_at @-notice once claude finishes
+    let lastCardMessageId = null;
 
     const ctl = {
       text(t) {
@@ -565,6 +607,7 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
         log,
         task,
         forcedSession != null,
+        msg.chatModel,
       ).then(
         (stats) => ({ ok: true, stats }),
         (err) => ({ ok: false, err }),
@@ -591,6 +634,7 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
             // map this card's message to the run's session, so a reply to
             // any card (rollover included) can find back its conversation
             recordChatBotMsgSession(c.messageId, session.sessionId);
+            lastCardMessageId = c.messageId;
             // card content model: answer + (optional) live thinking appended.
             // thinking stays visible until the first non-thinking output,
             // then gets wiped and replaced by the answer.
@@ -600,9 +644,12 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
               // fire-and-forget: catch so a failed card update can't become
               // an unhandled rejection and kill the process
               p.catch((e) => log.error("update failed:", e));
-            // throttle: at most one card update per 200ms; content arriving inside
-            // the window replaces the pending one and is sent when it reopens.
-            // send() never awaits — handleLine stays fully synchronous
+            // throttle window from config (per-card hot read); missing or
+            // non-numeric lark_stream_throttle_ms falls back to 200ms
+            const throttleMs = Number(loadConfig().lark_stream_throttle_ms) || 200;
+            // throttle: at most one card update per throttleMs; content arriving
+            // inside the window replaces the pending one and is sent when it
+            // reopens. send() never awaits — handleLine stays fully synchronous
             let lastSentAt = 0;
             let pendingContent = null;
             let trailingTimer = null;
@@ -611,7 +658,7 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
                 pendingContent = content;
                 return;
               }
-              const wait = 200 - (Date.now() - lastSentAt);
+              const wait = throttleMs - (Date.now() - lastSentAt);
               if (wait <= 0) {
                 lastSentAt = Date.now();
                 push(c.setContent(content));
@@ -687,7 +734,7 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
               log.log(`claude result : ${JSON.stringify(stats)}`);
               if (stats) {
                 const [model, usage = {}] =
-                  Object.entries(stats.modelUsage ?? {})[0] ?? ["unknown"];
+                  Object.entries(stats.model_usage_since_last_result ?? {})[0] ?? ["unknown"];
                 const inputTokens = usage.inputTokens ?? 0;
                 const cacheReadInputTokens = usage.cacheReadInputTokens ?? 0;
                 const durMs = Date.now() - receivedAt;
@@ -704,10 +751,25 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
                   answer +
                     `\n\n---\n\n\`${model}\` · 输入 ${inTotal}（缓存率 ${cachePct}）· 输出 ${usage.outputTokens ?? 0} · 耗时 ${dur}`,
                 );
+                // stream_end_at (chat config, default on): a standalone
+                // @-mention of the asker after a normal finish only —
+                // abort, failure, and the stats-less fallback flush their
+                // own footer, no ping; anchored to the newest card;
+                // fire-and-forget like push — a failed notice must not
+                // kill the card stream. no card ever opened -> no target,
+                // skip
+                if (msg.streamEndAt && lastCardMessageId) {
+                  channel
+                    .send(
+                      msg.chatId,
+                      { markdown: `<at id=${msg.senderId}></at>` },
+                      { replyTo: lastCardMessageId },
+                    )
+                    .catch((e) => log.error("stream_end_at send failed:", e));
+                }
               } else {
                 flush(answer + "\n\n⚠️ 程序异常退出");
               }
-              //   c.append(`\n\n---\n\n<at id=${msg.senderId}></at>`);
             } else if (task?.cancelled) {
               flush(answer + "\n\n⏹ 已中止");
             } else {

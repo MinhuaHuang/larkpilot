@@ -63,19 +63,55 @@ export function setConfig(key, value) {
 
 // per-chat runtime switches, read fresh from the config table on every call
 // so `config set` applies without a bot restart:
-// - disable_chat_ids: JSON array of chat ids where the bot is turned off
-// - chat_prompt_<chatId>: optional per-chat instruction appended to the
-//   claude prompt. a malformed disable_chat_ids fails open (bot stays on).
+// - chat_<chatId>: JSON string
+//   {"prompt":"","disabled":false,"model":"","stream_end_at":true} —
+//   prompt is a per-chat instruction appended to the claude prompt, disabled
+//   turns the bot off in that chat, model overrides the claude model for
+//   that chat (--model flag), stream_end_at sends an @-mention of the asker
+//   after the run finishes (default on). a malformed value fails open (bot
+//   stays on).
 export function getChatDirectives(chatId) {
   const config = loadConfig();
-  let disabledIds = [];
+  let directives = {};
   try {
-    disabledIds = JSON.parse(config.disable_chat_ids ?? "[]");
+    directives = JSON.parse(config[`chat_${chatId}`] ?? "{}");
   } catch {}
   return {
-    disabled: Array.isArray(disabledIds) && disabledIds.includes(chatId),
-    chatPrompt: config[`chat_prompt_${chatId}`] || null,
+    disabled: directives.disabled === true,
+    chatPrompt: directives.prompt || null,
+    chatModel: directives.model || null,
+    streamEndAt: directives.stream_end_at !== false,
   };
+}
+
+// read-modify-write of the per-chat JSON key chat_<chatId>: merge patch into
+// the parsed value, keeping the other fields as they are; an unparseable
+// existing value is overwritten (it was already dead to getChatDirectives)
+function updateChatDirectives(chatId, patch) {
+  const db = getDb();
+  let directives = {};
+  try {
+    directives = JSON.parse(
+      db.prepare("SELECT value FROM config WHERE key = ?").get(`chat_${chatId}`)
+        ?.value ?? "{}",
+    );
+  } catch {}
+  db.prepare("INSERT OR REPLACE INTO config (key, value) VALUES (?, ?)").run(
+    `chat_${chatId}`,
+    JSON.stringify({ ...directives, ...patch }),
+  );
+}
+
+// update just the "model" field of the per-chat key chat_<chatId>, keeping
+// prompt/disabled/stream_end_at as they are
+export function setChatModel(chatId, model) {
+  updateChatDirectives(chatId, { model });
+}
+
+// update just the "stream_end_at" field (default on) of the per-chat key
+// chat_<chatId>, keeping the other fields as they are
+export function setChatStreamEndAt(chatId, enabled) {
+  updateChatDirectives(chatId, { stream_end_at: enabled });
 }
 
 // bot card message -> claude session mapping: lets a later reply to any card
@@ -111,6 +147,15 @@ export function getSessionIdByMsgId(messageId) {
 // PATH lookup — the daemon's PATH does not reach the fnm-managed claude
 export function resolveClaudeCmd() {
   return loadConfig().claudePath || "claude";
+}
+
+// task concurrency (config key `max_concurrent`, default 2): how many claude
+// runs may execute at once across all chats. read fresh on every use so
+// `config set` applies without a bot restart; non-integer / < 1 falls back
+// to the default
+export function getMaxConcurrent() {
+  const n = Number(loadConfig().max_concurrent);
+  return Number.isInteger(n) && n >= 1 ? n : 2;
 }
 
 // does a pid still correspond to a live process (signal-0 probe)?
