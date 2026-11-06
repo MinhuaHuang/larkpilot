@@ -1,6 +1,6 @@
 {
   "name": "larkpilot",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "飞书智能助手 + 本地Agent（Claude Code）",
   "keywords": [
     "lark",
