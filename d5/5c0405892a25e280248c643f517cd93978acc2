@@ -1,0 +1,35 @@
+chat.js
+  h_d923b42e3a3ad7 291
+  s_ff3a0a0f32fbc7::t_a112c9bd169466 14
+  s_ff3a0a0f32fbc7::t_cd79626000a6b8 734-735
+  s_ff3a0a0f32fbc7::t_dd23142eb26411 733,736
+common.js
+  s_ff3a0a0f32fbc7::t_f74bc4b24ef1cf 207-208
+  s_ff3a0a0f32fbc7::t_684224c3d01546 212
+  s_ff3a0a0f32fbc7::t_73dd8f96ed2505 209-211,213-214
+test/loading-strip.test.js
+  s_ff3a0a0f32fbc7::t_113b4988408d68 1-26,39-40
+  s_ff3a0a0f32fbc7::t_a0528e1472e9f3 27
+  s_ff3a0a0f32fbc7::t_28db47fe62a3b1 28-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d55c0405892a25e280248c643f517cd93978acc2",
+  "prompts": {},
+  "humans": {
+    "h_d923b42e3a3ad7": {
+      "author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_ff3a0a0f32fbc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b71ff61c-f9f0-4a9f-8d4d-1b6ec4b48606",
+        "model": "unknown"
+      },
+      "human_author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    }
+  }
+}
