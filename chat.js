@@ -17,6 +17,7 @@ import {
   setChatModel,
   setChatStreamEndAt,
   getMaxConcurrent,
+  getLoadingBannerImg,
 } from "./common.js";
 
 const appLog = createTaskLogger("app");
@@ -73,7 +74,7 @@ const channel = createLarkChannel({
 });
 
 // ---- sessions ----
-// json (chat-session.json) holds only EXECUTED session ids: { [chatId+senderId]: [{ sessionId, expiresAt }] }
+// json (chat-session.json) holds only EXECUTED session ids: { [chatId+senderId]: [{ sessionId, expiresAt, round }] }
 // fresh unused ids live in memory (pendingSessions), one per key max,
 // get consumed before spawn and land in json when claude closes
 const SESSION_FILE = path.join(DATA_DIR, "chat-session.json");
@@ -287,7 +288,7 @@ function runClaudeStream(prompt, sessionKey, session, ctl, log, task = null, for
     let resultStats = null;
     const handleLine = (line) => {
       if (!line.trim()) return;
-      console.log(line);
+      // console.log(line);
       let evt;
       try {
         evt = JSON.parse(line);
@@ -553,6 +554,20 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
     // message->session mapping, and the claude run itself. a reply-pinned
     // session (bot card) wins; everything else resolves pending/store
     const session = forcedSession ?? getOrCreateSession(sessionKey);
+    // round: how many times this session has been used, this run included —
+    // incremented BEFORE the banner pick so heavy kicks in from the 4th use
+    // on. rides the session object into chat-session.json via the
+    // persistSession calls in runClaudeStream; legacy entries start at 0
+    session.round = (session.round ?? 0) + 1;
+    // a borrowed (reply-pinned) session lives under its owner's key:
+    // persistSession refuses to adopt it under this key (onlyExisting), so
+    // its round bump would never be written by that path — flush to disk now
+    if (forcedSession) saveSessions();
+    // loading banner (config lark_stream_loading_banner_img): image pinned on
+    // top of every card of this run while claude works, stripped by each
+    // card's finalizing flush. picked once per run — rollover cards reuse it
+    const bannerImg = getLoadingBannerImg(session.round);
+    const banner = bannerImg ? `![LARKPILOT_LOADING](${bannerImg})\n\n` : "";
     // feishu closes a streaming card 10min after creation; roll over to a
     // fresh card every 9min30s. The switch is timer-driven, not output-driven
     // — claude can run silent for a long stretch, and a delta-triggered check
@@ -654,6 +669,10 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
             let pendingContent = null;
             let trailingTimer = null;
             const send = (content) => {
+              // the banner rides every throttled update — flush omits it, so
+              // the image disappears when the card is finalized (rollover /
+              // claude end / failure)
+              content = banner + content;
               if (trailingTimer) {
                 pendingContent = content;
                 return;
@@ -706,8 +725,11 @@ async function processMessage(msg, sessionKey, receivedMsgContent, resourceFileP
                 send((answer ? answer + "\n\n" : "") + quoted);
               },
             };
-            // render whatever piled up while the card was being opened
-            if (answer) send(answer);
+            // render whatever piled up while the card was being opened; with
+            // a banner configured, send right away even with nothing piled
+            // up yet so the card shows the loading image from the moment it
+            // opens
+            if (banner || answer) send(answer);
             // card lifetime: rollover (TTL timer or content overflow) vs
             // claude result, whichever first
             let rollover;

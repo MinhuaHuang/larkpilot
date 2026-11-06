@@ -158,6 +158,22 @@ export function getMaxConcurrent() {
   return Number.isInteger(n) && n >= 1 ? n : 2;
 }
 
+// config `lark_stream_loading_banner_img` (JSON string, {"default":
+// "img_v2_...", "heavy": "img_v2_..."}): the loading banner image pinned on
+// top of every streaming card while claude runs. `round` is the session's
+// use counter: default shows for rounds 1-3, heavy wins from round 4 on
+// (falling back to default when unset). an empty/missing default with no
+// heavy means the banner is off; a malformed value fails off. read fresh so
+// `config set` applies without a bot restart
+export function getLoadingBannerImg(round) {
+  let imgs = {};
+  try {
+    imgs = JSON.parse(loadConfig().lark_stream_loading_banner_img ?? "{}");
+  } catch {}
+  if (round > 3 && imgs.heavy) return imgs.heavy;
+  return imgs.default || null;
+}
+
 // does a pid still correspond to a live process (signal-0 probe)?
 export function isAlive(pid) {
   if (!pid) return false;

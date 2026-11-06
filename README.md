@@ -62,6 +62,7 @@ larkpilot config set hookChatId <chatId>
 | `hookChatId` | hook 通知的目标会话 ID |
 | `claudePath` | `claude` 可执行文件绝对路径，覆盖默认 PATH 查找 |
 | `lark_stream_throttle_ms` | 卡片流式更新的节流间隔（毫秒），缺省 `200`，设为如 `500` 可降低更新频率 |
+| `lark_stream_loading_banner_img` | 流式卡片顶部的 loading banner 图，JSON 串：`{"default":"img_key","heavy":"img_key"}`；会话前 3 轮（round 1-3）用 `default`，第 4 轮起用 `heavy`（未配置时回退 `default`），`default` 为空则不展示；卡片定稿（滚动换卡 / 执行结束）时去除，解析失败视为未配置 |
 | `max_concurrent` | 全局最大并发任务数，缺省 `2`；非法值（非整数 / 小于 1）回退缺省 |
 | `chat_<chatId>` | 按群聊配置，JSON 串：`{"prompt":"附加到该群聊每条消息后的自定义指令","disabled":false,"model":"","stream_end_at":true}`（`disabled` 为 `true` 时关闭该群聊里的机器人；`model` 非空时该群聊用指定模型调用 claude，即 `--model` 参数；`stream_end_at` 为 `true` 时执行结束后单独 @ 提问者并回复最后一张卡片，默认开启；解析失败时保持开启） |
 
