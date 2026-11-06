@@ -1,0 +1,39 @@
+test/loading-banner.test.js
+  s_47714a54920cac::t_4b7981c3c389fd 1-69
+chat.js
+  s_47714a54920cac::t_4f16f609bc351f 672-674
+  h_d923b42e3a3ad7 291
+  s_47714a54920cac::t_6000af99d5f78c 77
+  s_47714a54920cac::t_02f0cad1d81d0a 557-561,566-569
+  s_47714a54920cac::t_1f9e2a8766a0fe 562-565
+  s_47714a54920cac::t_9b466a2f0bf11e 728-729
+  s_47714a54920cac::t_94a4db9360f6e7 570
+  s_47714a54920cac::t_7a5130372791cb 675
+  s_47714a54920cac::t_78c69a3c30ea70 730-732
+  s_47714a54920cac::t_0dc5aa8476e1a2 20
+README.md
+  s_47714a54920cac::t_37ce2c2e599a41 65
+common.js
+  s_47714a54920cac::t_d99c62f98c6ae9 161-176
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "48c0a8e3e0d7ee71ab9ba040d3d69d56202cd975",
+  "prompts": {},
+  "humans": {
+    "h_d923b42e3a3ad7": {
+      "author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_47714a54920cac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ad41fded-3efc-4cd0-aea2-700cdf542872",
+        "model": "GLM-5.3"
+      },
+      "human_author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    }
+  }
+}
