@@ -1,0 +1,76 @@
+README.md
+  s_6fcd4e667107b5::t_5e5e15b730f762 74
+  s_7834bc7234c507::t_88fd2208e2c9c3 66
+  s_7834bc7234c507::t_f0cb99b7470b93 73
+  s_6fcd4e667107b5::t_1283b809e3add3 9
+  s_7834bc7234c507::t_77603bc513e144 64
+  s_6fcd4e667107b5::t_e6b0ea6d0889c6 65
+test/chat-directives.test.js
+  s_6fcd4e667107b5::t_dfb5d7485cc706 14-18,21-22
+  s_7834bc7234c507::t_196a5d8b243956 28
+  s_7834bc7234c507::t_220a74af0ad7ec 71-83
+  s_7834bc7234c507::t_97058deb1523b2 84-108
+  s_7834bc7234c507::t_b86456837c0f0c 44,47-54
+  s_6fcd4e667107b5::t_b2097b182e7dc3 19
+  s_7834bc7234c507::t_9ef9f002e0323f 29
+  s_7834bc7234c507::t_262aad64fc0871 32-34,40-43,57-61,66-67
+  s_6fcd4e667107b5::t_f57cecd50a7321 20
+  s_6fcd4e667107b5::t_fefe012f2b3864 109-143
+  s_6fcd4e667107b5::t_40cffd9bd93799 144-158
+chat.js
+  s_7834bc7234c507::t_818a9434e36ed0 227
+  s_6fcd4e667107b5::t_d412955bf6978b 144-145,151
+  s_7834bc7234c507::t_33ff27701391c5 447-450,452-455
+  s_7834bc7234c507::t_37d007294cf276 17
+  s_6fcd4e667107b5::t_fd3492b97307df 456-470
+  s_7834bc7234c507::t_773ba6958be011 754-769
+  s_7834bc7234c507::t_bc845aa178f3b7 647-652,661
+  s_7834bc7234c507::t_c184bafc337d9e 637
+  s_7834bc7234c507::t_36443b5e4c025e 264-267
+  s_6fcd4e667107b5::t_ffc014a8b4ec4c 18
+  s_6fcd4e667107b5::t_8d46a9c7aa35df 19
+  s_7834bc7234c507::t_6dcd35fcec7c49 444-446,451
+  s_7834bc7234c507::t_1265bc1cb52dc7 610
+  s_7834bc7234c507::t_9b8a5d18e43956 290
+  h_d923b42e3a3ad7 737
+  s_7834bc7234c507::t_bccb0e0544decc 571-573
+  s_7834bc7234c507::t_889a1f87e2e3e0 191-195,204
+  s_6fcd4e667107b5::t_72c249c1e7e325 210
+  s_7834bc7234c507::t_52f7245e812730 196-198,205
+common.js
+  s_7834bc7234c507::t_80f18c4b29e75b 75,77,80-81
+  s_7834bc7234c507::t_0b7f91a3affa6c 66-67,70-72,83
+  s_7834bc7234c507::t_7d771d55d0272a 91-100,102,115-116
+  s_7834bc7234c507::t_563837be29ec92 68-69,82
+  s_6fcd4e667107b5::t_d3b84d5d688414 87-90,101,103-114
+  s_6fcd4e667107b5::t_035932853bfa91 152-160
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bcbeb59c4be6af384d5b259d2435d9e0382c068d",
+  "prompts": {},
+  "humans": {
+    "h_d923b42e3a3ad7": {
+      "author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_6fcd4e667107b5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "56627ebe-1be1-449f-b938-1024b4cf4414",
+        "model": "GLM-5.3"
+      },
+      "human_author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    },
+    "s_7834bc7234c507": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "22865a63-4889-445b-9699-9fdd1087dddb",
+        "model": "GLM-5.3"
+      },
+      "human_author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    }
+  }
+}
