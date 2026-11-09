@@ -25,6 +25,12 @@ const BOT_FILE = path.join(
   "chat.js",
 );
 
+// pid-reuse guard for the chat bot: its command line is `node <BOT_FILE>`.
+// trailing quote appears when the path contains spaces; case-insensitive
+// because windows paths are
+const isChatBotCmdline = (cmdline) =>
+  cmdline.replace(/"$/, "").toLowerCase().endsWith(BOT_FILE.toLowerCase());
+
 function readPid() {
   try {
     return parseInt(fs.readFileSync(PID_FILE, "utf8").trim(), 10);
@@ -40,7 +46,7 @@ const program = new Command()
 
 function startBot() {
   const pid = readPid();
-  if (isAlive(pid)) {
+  if (isAlive(pid, isChatBotCmdline)) {
     console.log(`已在运行 (pid ${pid})`);
     return;
   }
@@ -62,13 +68,16 @@ function startBot() {
 // never races the old process's teardown (websocket, session files)
 async function stopBot() {
   const pid = readPid();
-  if (!isAlive(pid)) {
+  if (!isAlive(pid, isChatBotCmdline)) {
     if (fs.existsSync(PID_FILE)) fs.unlinkSync(PID_FILE);
     console.log("未在运行");
     return;
   }
   process.kill(pid);
   fs.unlinkSync(PID_FILE);
+  // pid-only probe in the poll: identity was checked above, and each
+  // command-line check would spawn a powershell (~300ms) — too slow to
+  // repeat here
   for (let i = 0; i < 50 && isAlive(pid); i++) await sleep(100);
   console.log(`已停止 (pid ${pid})`);
 }
@@ -99,7 +108,9 @@ chatCmd
   .description("查看状态")
   .action(() => {
     const pid = readPid();
-    console.log(isAlive(pid) ? `运行中 (pid ${pid})` : "未在运行");
+    console.log(
+      isAlive(pid, isChatBotCmdline) ? `运行中 (pid ${pid})` : "未在运行",
+    );
   });
 
 // one-shot claude run: fresh session every time, no chat-session.json involvement;

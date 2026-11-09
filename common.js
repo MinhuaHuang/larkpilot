@@ -1,3 +1,4 @@
+import { execSync } from "child_process";
 import fs from "fs";
 import os from "os";
 import path from "path";
@@ -174,15 +175,44 @@ export function getLoadingBannerImg(round) {
   return imgs.default || null;
 }
 
-// does a pid still correspond to a live process (signal-0 probe)?
-export function isAlive(pid) {
+// command line of a pid (null when the lookup itself fails; empty when the
+// pid is gone or exposes no command line). win32: powershell prints in the
+// console codepage (gbk on zh-CN Windows), hence decodeChildText; unix: ps
+function readCmdline(pid) {
+  try {
+    if (process.platform === "win32") {
+      return decodeChildText(
+        execSync(
+          `powershell -NoProfile -Command "(Get-CimInstance Win32_Process -Filter 'ProcessId=${pid}').CommandLine"`,
+          { encoding: "buffer", windowsHide: true },
+        ),
+      ).trim();
+    }
+    return execSync(`ps -p ${pid} -o args=`, {
+      encoding: "utf8",
+      windowsHide: true,
+    }).trim();
+  } catch {
+    return null;
+  }
+}
+
+// does a pid still correspond to a live process (signal-0 probe)? with
+// `cmdlineMatches`, also require the process command line to satisfy the
+// predicate: a recycled pid now running something else must not pass as
+// ours (chat bot start/stop/status). a failed command-line lookup fails
+// open (pid-only, the old behavior)
+export function isAlive(pid, cmdlineMatches) {
   if (!pid) return false;
   try {
     process.kill(pid, 0);
-    return true;
   } catch {
     return false;
   }
+  if (!cmdlineMatches) return true;
+  const cmdline = readCmdline(pid);
+  if (cmdline === null) return true;
+  return cmdlineMatches(cmdline);
 }
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
