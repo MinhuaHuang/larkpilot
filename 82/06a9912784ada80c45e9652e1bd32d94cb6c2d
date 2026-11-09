@@ -1,0 +1,31 @@
+common.js
+  s_8e71d967f6434d::t_9f997938c87631 178-180,183-194,201-205,212,215
+  s_8e71d967f6434d::t_940c3460858ba9 181-182,195-200,213-214
+  s_8e71d967f6434d::t_7d225ef0fb94ad 1
+test/is-alive.test.js
+  s_8e71d967f6434d::t_23cb3d9f99efe2 1-24,31-33,36-37,40-41,43-44,46-49,51-53,55-69
+  s_8e71d967f6434d::t_020de606151d1d 50,54
+  s_8e71d967f6434d::t_6581c90711a45e 25-30,34-35,38-39,42,45
+index.js
+  s_8e71d967f6434d::t_d78b68fd97f22c 28-33
+  s_8e71d967f6434d::t_6c1ec4e606914d 111-113
+  s_8e71d967f6434d::t_443a36556f7ecb 49
+  s_8e71d967f6434d::t_beb0aaa0f7ebee 78-80
+  s_8e71d967f6434d::t_bf6ea2a766dd84 71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8206a9912784ada80c45e9652e1bd32d94cb6c2d",
+  "prompts": {},
+  "sessions": {
+    "s_8e71d967f6434d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "930ea12a-978b-4422-a321-733c57ddd0cf",
+        "model": "GLM-5.3"
+      },
+      "human_author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    }
+  }
+}
