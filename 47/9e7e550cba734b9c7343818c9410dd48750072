@@ -1,0 +1,19 @@
+chat.js
+  s_9a1ae1cdda6ba5::t_3b0bc3fa89bb72 333-346
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "479e7e550cba734b9c7343818c9410dd48750072",
+  "prompts": {},
+  "sessions": {
+    "s_9a1ae1cdda6ba5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "007a8b6c-3607-4bd9-ab72-112f4f0659db",
+        "model": "GLM-5.3-FLASH"
+      },
+      "human_author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    }
+  }
+}
