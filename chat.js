@@ -330,7 +330,20 @@ function runClaudeStream(prompt, sessionKey, session, ctl, log, task = null, for
     child.on("error", reject);
     child.on("close", (code) => {
       if (buffer.trim()) handleLine(buffer);
-      persistSession(sessionKey, session, forced);
+      // CrossMark abort on a seeded-new session: the tree kill can land
+      // before claude ever wrote its transcript to disk — persisting the
+      // uuid would poison the next message's --resume with
+      // "No conversation found with session ID". drop it instead; an
+      // aborted resumed session (transcript already on disk) is unaffected
+      if (task?.cancelled && seedNew && code !== 0) {
+        sessionStore[sessionKey] = (sessionStore[sessionKey] ?? []).filter(
+          (e) => e.sessionId !== session.sessionId,
+        );
+        saveSessions();
+        log.log("dropped aborted unseeded session:", session.sessionId);
+      } else {
+        persistSession(sessionKey, session, forced);
+      }
       if (code !== 0) {
         // killed via CrossMark: report abort, skip dead-session cleanup —
         // the session itself stays valid for the next --resume
