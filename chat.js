@@ -18,6 +18,7 @@ import {
   setChatStreamEndAt,
   getMaxConcurrent,
   getLoadingBannerImg,
+  getSessionTtlMs,
 } from "./common.js";
 
 const appLog = createTaskLogger("app");
@@ -78,7 +79,6 @@ const channel = createLarkChannel({
 // fresh unused ids live in memory (pendingSessions), one per key max,
 // get consumed before spawn and land in json when claude closes
 const SESSION_FILE = path.join(DATA_DIR, "chat-session.json");
-const SESSION_TTL_MS = 4 * 60 * 60 * 1000;
 // a reply may still pin a session this long after its expiry — claude keeps
 // the session resumable on disk well past the app TTL
 const REPLY_SESSION_GRACE_MS = 7 * 24 * 60 * 60 * 1000;
@@ -108,7 +108,7 @@ function newSession(key) {
   if (pendingSessions.has(key)) return pendingSessions.get(key);
   const entry = {
     sessionId: randomUUID(),
-    expiresAt: Date.now() + SESSION_TTL_MS,
+    expiresAt: Date.now() + getSessionTtlMs(),
   };
   pendingSessions.set(key, entry);
   return entry;
@@ -134,7 +134,7 @@ function persistSession(key, entry, onlyExisting = false) {
   const list = sessionStore[key] ?? [];
   const known = list.some((e) => e.sessionId === entry.sessionId);
   if (onlyExisting && !known) return;
-  entry.expiresAt = Date.now() + SESSION_TTL_MS;
+  entry.expiresAt = Date.now() + getSessionTtlMs();
   if (!known) list.push(entry);
   sessionStore[key] = list
     .sort((a, b) => a.expiresAt - b.expiresAt)

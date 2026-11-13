@@ -159,6 +159,15 @@ export function getMaxConcurrent() {
   return Number.isInteger(n) && n >= 1 ? n : 2;
 }
 
+// chat session TTL (config key `chat_session_ttl`, in seconds, default 3600):
+// how long a chat's claude session stays resumable before a new one starts.
+// read fresh on every use so `config set` applies without a bot restart;
+// non-integer / < 1 falls back to the default. returns milliseconds
+export function getSessionTtlMs() {
+  const n = Number(loadConfig().chat_session_ttl);
+  return (Number.isInteger(n) && n >= 1 ? n : 3600) * 1000;
+}
+
 // config `lark_stream_loading_banner_img` (JSON string, {"default":
 // "img_v2_...", "heavy": "img_v2_..."}): the loading banner image pinned on
 // top of every streaming card while claude runs. `round` is the session's

@@ -17,6 +17,7 @@ const {
   setChatModel,
   setChatStreamEndAt,
   getMaxConcurrent,
+  getSessionTtlMs,
   getDb,
   loadConfig,
 } = await import("../common.js");
@@ -154,6 +155,21 @@ test("getMaxConcurrent: defaults to 2, config max_concurrent wins, invalid falls
   // restore so later tests see the default
   getDb().prepare("DELETE FROM config WHERE key = ?").run("max_concurrent");
   assert.equal(getMaxConcurrent(), 2);
+});
+
+test("getSessionTtlMs: defaults to 3600s, config chat_session_ttl wins, invalid falls back", () => {
+  assert.equal(getSessionTtlMs(), 3600_000);
+  setConfig("chat_session_ttl", "7200");
+  assert.equal(getSessionTtlMs(), 7200_000);
+  setConfig("chat_session_ttl", "abc");
+  assert.equal(getSessionTtlMs(), 3600_000);
+  setConfig("chat_session_ttl", "0");
+  assert.equal(getSessionTtlMs(), 3600_000);
+  setConfig("chat_session_ttl", "1.5");
+  assert.equal(getSessionTtlMs(), 3600_000);
+
+  getDb().prepare("DELETE FROM config WHERE key = ?").run("chat_session_ttl");
+  assert.equal(getSessionTtlMs(), 3600_000);
 });
 
 // cleanup the temp db so tmpdir doesn't accumulate wal/shm side files
