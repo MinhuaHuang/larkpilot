@@ -1,0 +1,27 @@
+chat.js
+  s_6a04826cae7a9b::t_adca72ab43dee6 111
+  s_6a04826cae7a9b::t_1816b4323b55bc 137
+  s_6a04826cae7a9b::t_b90a9d8b39b131 21
+README.md
+  s_6a04826cae7a9b::t_6411f62af5a7ab 67
+test/chat-directives.test.js
+  s_6a04826cae7a9b::t_6411f62af5a7ab 20,160-174
+common.js
+  s_6a04826cae7a9b::t_937277100a62cf 162-170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7e80e0269594fb6ce2d81c5ae08009b866fc5018",
+  "prompts": {},
+  "sessions": {
+    "s_6a04826cae7a9b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e5926f17-164f-4cdd-9514-c246fd700a8a",
+        "model": "GLM-5.3"
+      },
+      "human_author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    }
+  }
+}
