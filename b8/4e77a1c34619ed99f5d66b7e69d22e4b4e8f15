@@ -1,0 +1,19 @@
+CHANGE_LOG.md
+  s_74dd6873dd21b1::t_02d974d9635181 1-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b84e77a1c34619ed99f5d66b7e69d22e4b4e8f15",
+  "prompts": {},
+  "sessions": {
+    "s_74dd6873dd21b1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7254e2d0-2d0a-438a-acaf-dad17f3d6834",
+        "model": "GLM-5.3"
+      },
+      "human_author": "MinhuaHuang <huangminhua.cn@gmail.com>"
+    }
+  }
+}
